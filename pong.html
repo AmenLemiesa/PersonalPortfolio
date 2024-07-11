@@ -4,11 +4,11 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contact Amen Lemiesa</title>
+    <title>Pong by Amen Lemiesa</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="mediaq.css" />
   </head>
-  <body>
+  <body onload = "countdown()">
     <nav id="desktop-nav">
       <div class="logo">Amen Lemiesa</div>
       <div>
@@ -36,27 +36,16 @@
             </div>
         </div>
     </nav>
-    <section id = "contact">
-      <p class = "section__text__p1">Get In Touch!</p>
-      <h1 class = "title">Contact Me</h1>
-      <div class = "contact-info-container">
-        <p><a href = "mailto:amen.lemiesa@gmail.com" class = "email-icon">amen.lemiesa@gmail.com</a></p>
-      </div>
-    </section>
+    <div class = "pong-border">
+    <div class = "pong-container">
+        <canvas id="board"></canvas>
+            <br>
+            <div>
+            <p id="countdown"></p>
+            <p id="demo"></p>
+            </div>
+    </div>
+    </div>
     <script src="script.js"></script>
   </body>
-  <footer>
-    <nav>
-      <div class = "nav-links-container">
-        <ul class="nav-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="projects.html">Projects</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
-      </div>
-    </nav>
-    <p>Copyright &#169;  2024 Amen Lemiesa. All Rights Reserved</p>
-    <img src = "assets/logo.png">
-  </footer>
 </html>

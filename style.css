@@ -268,8 +268,8 @@ section {
 }
 
 .about-details-container {
-  justify-content: center;
   flex-direction: column;
+  height: 100vh;
 }
 
 .about-containers,
@@ -319,6 +319,10 @@ section {
 
   /* Contact */
 
+  #contact{
+    height: 100vh;
+  }
+
   .contact-info-container {
     display: flex;
     justify-content: center;
@@ -354,4 +358,55 @@ section {
 .project-btn {
   color: black;
   border-color: rgb(163, 163, 163);
+}
+
+footer {
+  height: 20vh;
+  margin: 0 1rem;
+  margin-bottom: 1rem;
+}
+
+footer p{
+  text-align: center;
+}
+
+footer img{
+  height: 70%; /* Adjust width of the image */
+  display: block; /* Ensures margin: 0 auto; works correctly */
+  margin: 0 auto;
+  margin-top: 1rem;
+  margin-bottom: 10rem;
+}
+
+/* Pong Project */
+
+#board {
+  background-color: black;
+  border-top: 30px solid green;
+  border-left: 30px solid red;
+  border-right: 30px solid red;
+  border-bottom: 30px solid green;
+}
+
+
+
+.pong-container{
+  font-family: 'Poopins', sans-serif;
+  text-align: center;
+  font-size: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+   /* Adjust width as needed */
+  justify-content: center;
+  margin-left: 20%;
+  margin-right:20%;
+  max-width: 100vh;
+  max-height: 100vh; /* Padding inside the container */
+  border-radius: 10px; /* Rounded corners */
+  padding: 2%;
+
+  background-color: #f0f0f0; /* Background color */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 1); /* Shadow */
+  border: 1px solid #ddd; /* Border */
 }
