@@ -177,29 +177,3 @@ function movePlayer(e) {
         player2.velocityY=3;
     }
 }
-
-$("map[name=image-map]").mapoid({
-    // width
-  width : 600,
-
-  // stroke color
-  strokeColor: 'black',
-
-  // stroke width
-  strokeWidth: 1,
-
-  // fill color
-  fillColor: 'black',
-
-  // 0-1
-  fillOpacity: 0.5,
-
-  // in milliseconds
-  fadeTime: 500,
-
-  // an array of selected areas
-  selectedArea: false,
-
-  // select on click
-  selectOnClick: true
-});
