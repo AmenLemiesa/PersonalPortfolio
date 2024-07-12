@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Amen Lemiesa</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="mediaq.css" />
+  </head>
+  <body>
+    <nav id="desktop-nav">
+      <div class="logo">Amen Lemiesa</div>
+      <div>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html">About</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+    <nav id="hamburger-nav">
+        <div class = "logo"> Amen Lemiesa</div>
+        <div class = "hamburger-menu">
+            <div class = "hamburger-icon" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class = 'menu-links'>
+                <li><a href="index.html" onclick="toggleMenu()">Home</a></li>
+                <li><a href="index.html" onclick="toggleMenu()">About</a></li>
+                <li><a href="projects.html" onclick="toggleMenu()">Projects</a></li>
+                <li><a href="contact.html" onclick="toggleMenu()">Contact</a></li>
+            </div>
+        </div>
+    </nav>
+    
+    <img src = "assets/logo2.png" alt = "" usemap = "#image-map" class = "map">
+    <map name = "image-map" id = "image-map">
+      <area target="" alt="" title="L" href="" coords="1396,917,1352,1130,1066,1130,1044,583,1535,671,1183,1068" shape="poly">
+    </map>
+
+    
+
+    <script src="script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" 
+        integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" 
+        crossorigin="anonymous"></script>
+<script src="mapoid.js"></script>
+  </body>
+</html>
