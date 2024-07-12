@@ -129,7 +129,7 @@ function update(){
     if (ball.x > boardWidth || ball.x < 0){
         var hider = document.getElementById("board");
         hider.style.display = "none";
-        document.getElementById("demo").innerHTML = "GAME OVER <br>" + "Score: " + counter;
+        document.getElementById("demo").innerHTML = "GAME OVER <br>" + "Score: " + counter + "<br> ‎";
         let elementHide = document.getElementById("countdown");
         elementHide.style.display = "none";
 
