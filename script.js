@@ -176,4 +176,5 @@ function movePlayer(e) {
     else if (e.code== "ArrowDown"){
         player2.velocityY=3;
     }
+
 }

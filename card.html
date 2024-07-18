@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Amen Lemiesa</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="mediaq.css" />
+  </head>
+  <body>
+    <nav id="desktop-nav">
+      <div class="logo">Amen Lemiesa</div>
+      <div>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html">About</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+    <nav id="hamburger-nav">
+        <div class = "logo"> Amen Lemiesa</div>
+        <div class = "hamburger-menu">
+            <div class = "hamburger-icon" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class = 'menu-links'>
+                <li><a href="index.html" onclick="toggleMenu()">Home</a></li>
+                <li><a href="index.html" onclick="toggleMenu()">About</a></li>
+                <li><a href="projects.html" onclick="toggleMenu()">Projects</a></li>
+                <li><a href="contact.html" onclick="toggleMenu()">Contact</a></li>
+            </div>
+        </div>
+    </nav>
+    <div class = "pong-container">
+    <div class = "video-container">
+    <video id="webcam" autoplay playsinline width="640" height="480"></video>
+    <canvas id="overlay" width="640" height="480"></canvas>
+  </div>
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/handpose"></script>
+    <script src="card.js"></script>
+  </body>
+</html>
