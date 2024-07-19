@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Amen Lemiesa's Audrino Projects</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="mediaq.css" />
+  </head>
+  <body>
+    <nav id="desktop-nav">
+      <div class="logo">Amen Lemiesa</div>
+      <div>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html">About</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+    <nav id="hamburger-nav">
+        <div class = "logo"> Amen Lemiesa</div>
+        <div class = "hamburger-menu">
+            <div class = "hamburger-icon" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class = 'menu-links'>
+                <li><a href="index.html" onclick="toggleMenu()">Home</a></li>
+                <li><a href="index.html" onclick="toggleMenu()">About</a></li>
+                <li><a href="projects.html" onclick="toggleMenu()">Projects</a></li>
+                <li><a href="contact.html" onclick="toggleMenu()">Contact</a></li>
+            </div>
+        </div>
+    </nav>
+    <body>
+        <div class="Arduino-container">
+            <div class="Arduino-grid">
+                <div class="Arduino-item" onclick="expandItem(this, 'Project Title 1', 'Expanded description for Project 1', './assets/github.png')">
+                    <div class="Arduino-image">
+                        <img src="./assets/email.png" alt="Project Image 1">
+                    </div>
+                    <div class="Arduino-description">
+                        <h3>Project Title 1</h3>
+                        <p>This is a short description of the project.</p>
+                    </div>
+                </div>
+                <div class="Arduino-item" onclick="expandItem(this, 'Project Title 2', 'Expanded description for Project 2', './assets/github.png')">
+                    <div class="Arduino-image">
+                        <img src="./assets/A_black_image.jpg" alt="Project Image 2">
+                    </div>
+                    <div class="Arduino-description">
+                        <h3>Project Title 2</h3>
+                        <p>This is a short description of the project.</p>
+                    </div>
+                </div>
+                <div class="Arduino-item" onclick="expandItem(this, 'Project Title 2', 'Expanded description for Project 2', './assets/github.png')">
+                    <div class="Arduino-image">
+                        <img src="./assets/A_black_image.jpg" alt="Project Image 2">
+                    </div>
+                    <div class="Arduino-description">
+                        <h3>Project Title 2</h3>
+                        <p>This is a short description of the project.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div id="expanded-item" class="expanded-item">
+            <div class="expanded-content">
+                <div class="expanded-image">
+                    <img src="" alt="Expanded Project Image">
+                </div>
+                <div class="expanded-description">
+                    <h3>Expanded Project Title</h3>
+                    <p>Expanded project description goes here.</p>
+                </div>
+            </div>
+            <div id="close-button" class="close-button" onclick="collapseItem()">
+                <img src="./assets/close-circle.svg" alt="Close">
+            </div>
+        </div>
+    
+        <div id="overlay" class="overlay"></div>
+    
+        <script>
+            function expandItem(item, title, description, imageSrc) {
+                let expandedItem = document.getElementById('expanded-item');
+                let expandedImage = expandedItem.querySelector('.expanded-image img');
+                let expandedTitle = expandedItem.querySelector('.expanded-description h3');
+                let expandedDescription = expandedItem.querySelector('.expanded-description p');
+    
+                expandedImage.src = imageSrc;
+                expandedImage.alt = title;
+                expandedTitle.textContent = title;
+                expandedDescription.textContent = description;
+    
+                expandedItem.classList.add('active');
+            }
+    
+            function collapseItem() {
+                let expandedItem = document.getElementById('expanded-item');
+                expandedItem.classList.remove('active');
+                document.getElementById('overlay').classList.remove('active');
+            }
+    
+            document.getElementById('overlay').onclick = function() {
+                collapseItem();
+            }
+        </script>
+    </body>
+  <footer>
+    <nav>
+      <div class = "nav-links-container">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+    <p>Copyright &#169;  2024 Amen Lemiesa. All Rights Reserved</p>
+    <img src = "assets/logo.png">
+  </footer>
+</html>
