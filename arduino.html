@@ -39,78 +39,98 @@
     <body>
         <div class="Arduino-container">
             <div class="Arduino-grid">
-                <div class="Arduino-item" onclick="expandItem(this, 'Project Title 1', 'Expanded description for Project 1', './assets/github.png')">
+                <div class="Arduino-item" onclick="expandItem(this, 'Arduino Traffic Light Intersection', 'Simulates a intersection with four sets of traffic lights (three LEDs). Just as a traffic light would sense traffic at an intersection and begin the sequence to stop oncoming traffic, when the button is pressed the system activates the yellow light for three seconds then makes sure all parties have come to a complete stop before making green', '','https://www.youtube.com/embed/RzIzA-gc59k?si=3r2igiy_OI3OfEc5')">
                     <div class="Arduino-image">
-                        <img src="./assets/email.png" alt="Project Image 1">
+                        <img src="./assets/traffic.jpeg" alt="Project Image 3">
                     </div>
                     <div class="Arduino-description">
-                        <h3>Project Title 1</h3>
-                        <p>This is a short description of the project.</p>
+                        <h3>Arduino Traffic Light Intersection</h3>
+                        <p>Button alerts traffic light to switch flow of traffic</p>
                     </div>
                 </div>
-                <div class="Arduino-item" onclick="expandItem(this, 'Project Title 2', 'Expanded description for Project 2', './assets/github.png')">
+                <div class="Arduino-item" onclick="expandItem(this, 'Moving LED on Servo', 'The potentiometer is mapped such that when its values from 0 to 1023 are inputted they are scaled to adjust the servo. The button is being continously pressed during this demonstration.', './assets/tempIMG.png','')">
                     <div class="Arduino-image">
-                        <img src="./assets/A_black_image.jpg" alt="Project Image 2">
+                        <img src="./assets/tempHumid.jpeg" alt="Project Image 3">
                     </div>
                     <div class="Arduino-description">
-                        <h3>Project Title 2</h3>
-                        <p>This is a short description of the project.</p>
+                        <h3>Temp Humidity and Air Quality Arduino Monitor</h3>
+                        <p>In the title...</p>
                     </div>
                 </div>
-                <div class="Arduino-item" onclick="expandItem(this, 'Project Title 2', 'Expanded description for Project 2', './assets/github.png')">
+                <div class="Arduino-item" onclick="expandItem(this, 'Moving LED on Servo', 'The potentiometer is mapped such that when its values from 0 to 1023 are inputted they are scaled to adjust the servo. The button is being continously pressed during this demonstration.', '','https://www.youtube.com/embed/yYJzxAyLz8A?si=8D6VYKpC5qEY7oZg&amp;controls=0')">
                     <div class="Arduino-image">
-                        <img src="./assets/A_black_image.jpg" alt="Project Image 2">
+                        <img src="./assets/movingLED.jpeg" alt="Project Image 3">
                     </div>
                     <div class="Arduino-description">
-                        <h3>Project Title 2</h3>
-                        <p>This is a short description of the project.</p>
+                        <h3>Moving LED on Servo</h3>
+                        <p>Potentiometer controlling servomotor while button activates LED</p>
                     </div>
                 </div>
             </div>
         </div>
-    
+        
         <div id="expanded-item" class="expanded-item">
             <div class="expanded-content">
-                <div class="expanded-image">
-                    <img src="" alt="Expanded Project Image">
-                </div>
                 <div class="expanded-description">
                     <h3>Expanded Project Title</h3>
                     <p>Expanded project description goes here.</p>
+                </div>
+                <div class="expanded-image">
+                    <img src="">
+                </div>
+                <div class="expanded-video">
+                    <iframe width="560" height="315" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             </div>
             <div id="close-button" class="close-button" onclick="collapseItem()">
                 <img src="./assets/close-circle.svg" alt="Close">
             </div>
-        </div>
-    
-        <div id="overlay" class="overlay"></div>
-    
+        </div>  
+                
         <script>
-            function expandItem(item, title, description, imageSrc) {
-                let expandedItem = document.getElementById('expanded-item');
-                let expandedImage = expandedItem.querySelector('.expanded-image img');
-                let expandedTitle = expandedItem.querySelector('.expanded-description h3');
-                let expandedDescription = expandedItem.querySelector('.expanded-description p');
-    
-                expandedImage.src = imageSrc;
-                expandedImage.alt = title;
-                expandedTitle.textContent = title;
-                expandedDescription.textContent = description;
-    
-                expandedItem.classList.add('active');
+            function expandItem(item, title, description, imageSrc, videoSrc) {
+            let expandedItem = document.getElementById('expanded-item');
+            let expandedImageContainer = expandedItem.querySelector('.expanded-image');
+            let expandedImage = expandedItem.querySelector('.expanded-image img');
+            let expandedTitle = expandedItem.querySelector('.expanded-description h3');
+            let expandedDescription = expandedItem.querySelector('.expanded-description p');
+            let expandedVideoContainer = expandedItem.querySelector('.expanded-video');
+            let expandedVideo = expandedItem.querySelector('.expanded-video iframe');
+
+            expandedImage.src = imageSrc;
+            expandedImage.alt = title;
+            expandedTitle.textContent = title;
+            expandedDescription.textContent = description;
+            expandedVideo.src = videoSrc;
+
+            if (videoSrc == '') {
+                expandedVideoContainer.style.display = 'none';
+                expandedVideo.src = '';
+            } else {
+                expandedVideoContainer.style.display = 'block';
+                expandedVideo.src = videoSrc;
             }
-    
+
+            if (imageSrc == '') {
+                expandedImageContainer.style.display = 'none';
+                expandedImage.src = '';
+            } else {
+                expandedImageContainer.style.display = 'block';
+                expandedImage.src = imageSrc;
+            }
+
+            expandedItem.classList.add('active');
+        }
+        
             function collapseItem() {
                 let expandedItem = document.getElementById('expanded-item');
+                let expandedVideo = expandedItem.querySelector('.expanded-video iframe');
+        
                 expandedItem.classList.remove('active');
-                document.getElementById('overlay').classList.remove('active');
-            }
-    
-            document.getElementById('overlay').onclick = function() {
-                collapseItem();
+                expandedVideo.src = '';
             }
         </script>
+        
     </body>
   <footer>
     <nav>

@@ -451,16 +451,6 @@ footer img{
   z-index: 1;
   border-radius: 10px;
 }
-#overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 2;
-  border-radius: 10px;
-  pointer-events: none; /* Ensure the canvas does not capture mouse events */
-}
 
 /* Arduino Projects */
 
@@ -510,25 +500,27 @@ footer img{
 .Arduino-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  width: 60%;
+  gap: 50px;
+  width: 70%;
 }
 
 .Arduino-item {
   background-color: #ffffff;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 1);
   display: flex;
   flex-direction: column;
   justify-content:space-between;
+  align-items: center;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+
 .Arduino-item:hover .Arduino-image img {
-  transform: scale(1.05);
-  filter: grayscale(80%);
+  transform: scale(0.95);
+  filter: brightness(110%);
 }
 
 .Arduino-image {
@@ -536,7 +528,7 @@ footer img{
 }
 
 .Arduino-image img {
-  width: 100%;
+  width: 40vh;
   border-radius: 10px;
   margin-bottom: 20px;
   transition: transform 0.3s ease, filter 0.3s ease;
@@ -567,6 +559,7 @@ footer img{
   transition: all 0.3s ease;
   display: none; /* Hide by default */
   justify-content: center;
+  align-items: center;
 }
 
 .expanded-item.active {
@@ -579,7 +572,7 @@ footer img{
   justify-content: center;
   align-items: center;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   height: 100%;
 }
 
@@ -590,7 +583,7 @@ footer img{
 }
 
 .expanded-description {
-  padding: 20px;
+  padding: 40px;
 }
 
 .expanded-description h3 {
@@ -621,22 +614,16 @@ footer img{
   transform: rotate(90deg);
 }
 
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-  z-index: 5;
-  border-radius: 0; /* Ensure no rounding */
-
+.expanded-video iframe, .expanded-image {
+  margin: 2rem;
+  border: 2px solid #ccc; /* example of custom border */
+  border-radius:2%;/* example of border radius */
 }
 
-.overlay.active {
-  opacity: 1;
-  pointer-events: all;
+.expanded-video, .expanded-image {
+  display: none; /* Hide by default */
+}
+
+.expanded-item.active .expanded-video, .expanded-image {
+  display: block; /* Show when the expanded item is active and there's a video source */
 }
