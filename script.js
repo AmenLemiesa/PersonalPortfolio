@@ -178,3 +178,18 @@ function movePlayer(e) {
     }
 
 }
+
+//DARK MODE
+
+const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const themeStylesheet = document.getElementById('themeStylesheet');
+
+    themeToggleBtn.addEventListener('click', () => {
+      if (themeStylesheet.getAttribute('href') == 'style.css') {
+        themeStylesheet.setAttribute('href', 'styleDark.css');
+        themeToggleBtn.classList.add('dark');
+      } else {
+        themeStylesheet.setAttribute('href', 'style.css');
+        themeToggleBtn.classList.remove('dark');
+      }
+    });
