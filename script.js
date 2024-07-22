@@ -181,15 +181,74 @@ function movePlayer(e) {
 
 //DARK MODE
 
-const themeToggleBtn = document.getElementById('themeToggleBtn');
+function applyTheme(theme) {
     const themeStylesheet = document.getElementById('themeStylesheet');
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const logoDark = document.getElementById('logoDark');
 
-    themeToggleBtn.addEventListener('click', () => {
-      if (themeStylesheet.getAttribute('href') == 'style.css') {
+    if (theme === 'dark') {
         themeStylesheet.setAttribute('href', 'styleDark.css');
         themeToggleBtn.classList.add('dark');
-      } else {
+        logoDark.setAttribute('src', 'assets/logoDark.png');
+    } else {
         themeStylesheet.setAttribute('href', 'style.css');
         themeToggleBtn.classList.remove('dark');
-      }
-    });
+        logoDark.setAttribute('src', 'assets/logo.png');
+    }
+}
+
+function toggleTheme() {
+    const currentTheme = localStorage.getItem('theme') === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('theme', currentTheme);
+    applyTheme(currentTheme);
+}
+
+document.getElementById('themeToggleBtn').addEventListener('click', toggleTheme);
+
+const savedTheme = localStorage.getItem('theme') || 'light';
+applyTheme(savedTheme);
+
+
+// Arudino Expand
+
+function expandItem(item, title, description, imageSrc, videoSrc) {
+    let expandedItem = document.getElementById('expanded-item');
+    let expandedImageContainer = expandedItem.querySelector('.expanded-image');
+    let expandedImage = expandedItem.querySelector('.expanded-image img');
+    let expandedTitle = expandedItem.querySelector('.expanded-description h3');
+    let expandedDescription = expandedItem.querySelector('.expanded-description p');
+    let expandedVideoContainer = expandedItem.querySelector('.expanded-video');
+    let expandedVideo = expandedItem.querySelector('.expanded-video iframe');
+
+    expandedImage.src = imageSrc;
+    expandedImage.alt = title;
+    expandedTitle.textContent = title;
+    expandedDescription.textContent = description;
+    expandedVideo.src = videoSrc;
+
+    if (videoSrc == '') {
+        expandedVideoContainer.style.display = 'none';
+        expandedVideo.src = '';
+    } else {
+        expandedVideoContainer.style.display = 'block';
+        expandedVideo.src = videoSrc;
+    }
+
+    if (imageSrc == '') {
+        expandedImageContainer.style.display = 'none';
+        expandedImage.src = '';
+    } else {
+        expandedImageContainer.style.display = 'block';
+        expandedImage.src = imageSrc;
+    }
+
+    expandedItem.classList.add('active');
+}
+
+    function collapseItem() {
+        let expandedItem = document.getElementById('expanded-item');
+        let expandedVideo = expandedItem.querySelector('.expanded-video iframe');
+
+        expandedItem.classList.remove('active');
+        expandedVideo.src = '';
+    }
