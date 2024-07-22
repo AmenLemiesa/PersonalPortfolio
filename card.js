@@ -19,9 +19,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Load the Handpose model for hand tracking
-    const model = await handpose.load();
-    // Log a message when the Handpose model is successfully loaded
-    console.log('Handpose model loaded');
+    let model;
+    try {
+        model = await handpose.load();
+        // Log a message when the Handpose model is successfully loaded
+        console.log('Handpose model loaded');
+    } catch (error) {
+        console.error('Error loading Handpose model:', error);
+        return;
+    }
 
     // Define colors for each finger
     const fingerColors = {

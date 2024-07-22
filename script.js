@@ -185,19 +185,29 @@ function applyTheme(theme) {
     const themeStylesheet = document.getElementById('themeStylesheet');
     const themeToggleBtn = document.getElementById('themeToggleBtn');
     const logoDark = document.getElementById('logoDark');
-    const projectLogoDark = document.getElementById('projectLogoDark');
 
     if (theme === 'dark') {
         themeStylesheet.setAttribute('href', 'styleDark.css');
         themeToggleBtn.classList.add('dark');
         logoDark.setAttribute('src', 'assets/logoDark.png');
-        projectLogoDark.setAttribute('src', 'assets/logoDark.png');
+        if (window.location.pathname.split("/").pop() === 'projects.html'){
+            document.getElementById('projectLogoDark').setAttribute('src', 'assets/logoDark.png');
+        }
+        if (window.location.pathname.split("/").pop() === 'arduino.html'){
+            document.getElementById('closeArduino').setAttribute('src', 'assets/close-circle-dark.svg');
+        }
 
     } else {
         themeStylesheet.setAttribute('href', 'style.css');
         themeToggleBtn.classList.remove('dark');
         logoDark.setAttribute('src', 'assets/logo.png');
-        projectLogoDark.setAttribute('src', 'assets/logo.png');
+        if (window.location.pathname.split("/").pop() === 'projects.html'){
+            document.getElementById('projectLogoDark').setAttribute('src', 'assets/logo.png');
+        }
+        if (window.location.pathname.split("/").pop() === 'arduino.html'){
+            document.getElementById('closeArduino').setAttribute('src', 'assets/close-circle.svg');
+        }
+
     }
 }
 
