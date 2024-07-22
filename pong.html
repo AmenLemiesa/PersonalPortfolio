@@ -5,14 +5,75 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pong by Amen Lemiesa</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="mediaq.css" />
+    <link id="themeStylesheet" rel="stylesheet" href="style.css">
+    <style>
+      .theme-toggle-btn {
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      outline: none;
+      display: flex;
+      align-items: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      transition: transform 0.3s ease;
+    }
+
+    .theme-toggle-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .theme-toggle-btn svg {
+      width: 24px;
+      height: 24px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .theme-toggle-btn .sun {
+      opacity: 1;
+      transform: rotate(0deg);
+    }
+
+    .theme-toggle-btn .moon {
+      opacity: 0;
+      transform: rotate(180deg);
+    }
+
+    .theme-toggle-btn.dark .sun {
+      opacity: 0;
+      transform: rotate(180deg);
+    }
+
+    .theme-toggle-btn.dark .moon {
+      opacity: 1;
+      transform: rotate(0deg);
+    }
+    </style>
   </head>
   <body onload = "countdown()">
     <nav id="desktop-nav">
       <div class="logo">Amen Lemiesa</div>
       <div>
         <ul class="nav-links">
+          <li><button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Theme">
+            <svg class="sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg class="moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#E0E0E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+            </svg>
+          </button></li>
           <li><a href="index.html">Home</a></li>
           <li><a href="index.html">About</a></li>
           <li><a href="projects.html">Projects</a></li>
