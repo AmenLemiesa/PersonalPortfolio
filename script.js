@@ -196,6 +196,10 @@ function applyTheme(theme) {
         if (window.location.pathname.split("/").pop() === 'arduino.html'){
             document.getElementById('closeArduino').setAttribute('src', 'assets/close-circle-dark.svg');
         }
+        if (window.location.pathname.split("/").pop() === 'index.html'){
+            document.getElementById('linkedin').setAttribute('src', 'assets/whiteLinkedin.png');
+            document.getElementById('github').setAttribute('src', 'assets/whiteGithub.png');
+        }
 
     } else {
         themeStylesheet.setAttribute('href', 'style.css');
@@ -206,6 +210,10 @@ function applyTheme(theme) {
         }
         if (window.location.pathname.split("/").pop() === 'arduino.html'){
             document.getElementById('closeArduino').setAttribute('src', 'assets/close-circle.svg');
+        }
+        if (window.location.pathname.split("/").pop() === 'index.html'){
+            document.getElementById('linkedin').setAttribute('src', 'assets/linkedin.png');
+            document.getElementById('github').setAttribute('src', 'assets/github.png');
         }
 
     }
