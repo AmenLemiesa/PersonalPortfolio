@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pong by Amen Lemiesa</title>
+    <title>Paper Trader by Amen Lemiesa</title>
     <link id="themeStylesheet" rel="stylesheet" href="style.css">
     <style>
       .theme-toggle-btn {
@@ -53,7 +53,6 @@
     }
     </style>
   </head>
-  <body onload = "countdown()">
     <nav id="desktop-nav">
       <div class="logo">Amen Lemiesa</div>
       <div>
@@ -97,14 +96,25 @@
             </div>
         </div>
     </nav>
-    <div class = "pong-container">
-        <canvas id="board"></canvas>
-            <br>
-            <div>
-            <p id="countdown"></p>
-            <p id="demo"></p>
-            </div>
+    <div class = "paperTraderContainer">
+    <div class="trading">
+        <h2 id = "h2">Trading</h2>
+        <form id="tradeForm">
+            <label for="symbol">Symbol:</label>
+            <input type="text" id="symbol" name="symbol" required>
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" required>
+            <button type="button" id = "buy">Buy</button>
+            <button type="button" id = "sell">Sell</button>
+        </form>
+        <div id="tradeLog"></div>
+    </div>
+    <div class="portfolio">
+        <h2 id = "h2">Portfolio</h2>
+        <div id="portfolioContainer"></div>
+    </div>
     </div>
   </body>
-  <script src="script.js"></script>
+  <script src="script.js">
+    </script>
 </html>

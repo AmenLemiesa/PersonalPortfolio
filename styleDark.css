@@ -629,3 +629,37 @@ footer img {
 .expanded-item.active .expanded-video, .expanded-image {
   display: block; /* Show when the expanded item is active and there's a video source */
 }
+
+/* Paper Trader */
+
+.paperTraderContainer {
+  display: flex;
+  justify-content: center;
+  padding: 2em;
+  gap: 2rem;
+}
+
+.market-data, .trading, .portfolio {
+  background-color: black;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1em;
+  width: 30%;
+}
+
+#h2 {
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form label, form input, form button {
+  margin: 0.5em 0;
+}
+
+#tradeLog, #portfolioContainer, #marketDataContainer {
+  margin-top: 1em;
+}

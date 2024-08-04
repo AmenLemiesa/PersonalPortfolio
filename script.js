@@ -189,7 +189,18 @@ function applyTheme(theme) {
     if (theme === 'dark') {
         themeStylesheet.setAttribute('href', 'styleDark.css');
         themeToggleBtn.classList.add('dark');
-        logoDark.setAttribute('src', 'assets/logoDark.png');
+        if (window.location.pathname.split("/").pop() === 'index.html'){
+            logoDark.setAttribute('src', 'assets/logoDark.png');
+        }
+        if (window.location.pathname.split("/").pop() === 'projects.html'){
+            logoDark.setAttribute('src', 'assets/logoDark.png');
+        }
+        if (window.location.pathname.split("/").pop() === 'contact.html'){
+            logoDark.setAttribute('src', 'assets/logoDark.png');
+        }
+        if (window.location.pathname.split("/").pop() === 'arduino.html'){
+            logoDark.setAttribute('src', 'assets/logoDark.png');
+        }
         if (window.location.pathname.split("/").pop() === 'projects.html'){
             document.getElementById('projectLogoDark').setAttribute('src', 'assets/logoDark.png');
         }
@@ -204,7 +215,18 @@ function applyTheme(theme) {
     } else {
         themeStylesheet.setAttribute('href', 'style.css');
         themeToggleBtn.classList.remove('dark');
-        logoDark.setAttribute('src', 'assets/logo.png');
+        if (window.location.pathname.split("/").pop() === 'index.html'){
+            logoDark.setAttribute('src', 'assets/logo.png');
+        }
+        if (window.location.pathname.split("/").pop() === 'projects.html'){
+            logoDark.setAttribute('src', 'assets/logo.png');
+        }
+        if (window.location.pathname.split("/").pop() === 'contact.html'){
+            logoDark.setAttribute('src', 'assets/logo.png');
+        }
+        if (window.location.pathname.split("/").pop() === 'arduino.html'){
+            logoDark.setAttribute('src', 'assets/logo.png');
+        }
         if (window.location.pathname.split("/").pop() === 'projects.html'){
             document.getElementById('projectLogoDark').setAttribute('src', 'assets/logo.png');
         }
@@ -274,3 +296,80 @@ function expandItem(item, title, description, imageSrc, videoSrc) {
         expandedItem.classList.remove('active');
         expandedVideo.src = '';
     }
+
+    //paper
+
+    const API_KEY = '1B7Z6SXKTP7L00U1';
+    const BASE_URL = 'https://www.alphavantage.co/query?';
+
+    const tradeForm = document.getElementById('tradeForm');
+    const tradeLog = document.getElementById('tradeLog');
+    const portfolioContainer = document.getElementById('portfolioContainer');
+
+    let portfolio = {};
+
+       
+    buy.addEventListener('click', (event) => {
+        event.preventDefault();
+        const symbol = tradeForm.elements['symbol'].value.toUpperCase();
+        const quantity = parseInt(tradeForm.elements['quantity'].value);
+        if (!symbol || isNaN(quantity)) {
+            tradeLog.innerHTML = 'Please enter a valid stock symbol and quantity.';
+            return;
+        }
+        
+        const url = `${BASE_URL}function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${API_KEY}`;
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const price = data['Global Quote']['05. price'];
+                if (isNaN(price)){
+                    tradeLog.innerHTML = "Undefined Stock Symbol.";
+                    return;
+                }
+                if (portfolio[symbol]) {
+                    portfolio[symbol].quantity += quantity;
+                    portfolio[symbol].totalValue += price * quantity;
+                } else {
+                    portfolio[symbol] = { quantity: quantity, totalValue: price * quantity };
+                }
+        
+                tradeLog.innerHTML += `<p>Bought ${quantity} shares of ${symbol} at $${price} each.</p>`;
+                portfolioContainer.innerHTML = '';
+                for (let symbol in portfolio) {
+                    portfolioContainer.innerHTML += `<p>${symbol}: ${portfolio[symbol].quantity} shares, Total Value: $${portfolio[symbol].totalValue.toFixed(2)}</p>`;
+                }
+            })
+    })
+    sell.addEventListener('click', (event) => {
+        event.preventDefault();
+        const symbol = tradeForm.elements['symbol'].value.toUpperCase();
+        const quantity = parseInt(tradeForm.elements['quantity'].value);
+        if (!symbol || isNaN(quantity)) {
+            tradeLog.innerHTML = 'Please enter a valid stock symbol and quantity.';
+            return;
+        }
+        
+        const url = `${BASE_URL}function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${API_KEY}`;
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const price = data['Global Quote']['05. price'];
+                if (isNaN(price)){
+                    tradeLog.innerHTML = "Undefined Stock Symbol.";
+                    return;
+                }
+                if (portfolio[symbol]) {
+                    portfolio[symbol].quantity -= quantity;
+                    portfolio[symbol].totalValue -= price * quantity;
+                } else {
+                    tradeLog.innerHTML += `${symbol} not owned`;
+                }
+        
+                tradeLog.innerHTML += `<p>Sold ${quantity} shares of ${symbol} at $${price} each.</p>`;
+                portfolioContainer.innerHTML = '';
+                for (let symbol in portfolio) {
+                    portfolioContainer.innerHTML += `<p>${symbol}: ${portfolio[symbol].quantity} shares, Total Value: $${portfolio[symbol].totalValue.toFixed(2)}</p>`;
+                }
+            })
+    })
