@@ -299,7 +299,7 @@ function expandItem(item, title, description, imageSrc, videoSrc) {
 
     //paper
 
-    const API_KEY = '1B7Z6SXKTP7L00U1';
+    const API_KEY = 'ZKYPVBUN3C4RYZ09';
     const BASE_URL = 'https://www.alphavantage.co/query?';
 
     const tradeForm = document.getElementById('tradeForm');
@@ -339,6 +339,7 @@ function expandItem(item, title, description, imageSrc, videoSrc) {
                 for (let symbol in portfolio) {
                     portfolioContainer.innerHTML += `<p>${symbol}: ${portfolio[symbol].quantity} shares, Total Value: $${portfolio[symbol].totalValue.toFixed(2)}</p>`;
                 }
+                console.log(portfolio);
             })
     })
     sell.addEventListener('click', (event) => {
