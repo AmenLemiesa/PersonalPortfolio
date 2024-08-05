@@ -298,7 +298,7 @@ function expandItem(item, title, description, imageSrc, videoSrc) {
     }
 
     //paper
-
+    if (window.location.pathname.split("/").pop() === 'paperTrader.html'){
     const API_KEY = 'ZKYPVBUN3C4RYZ09';
     const BASE_URL = 'https://www.alphavantage.co/query?';
 
@@ -306,8 +306,10 @@ function expandItem(item, title, description, imageSrc, videoSrc) {
     const tradeLog = document.getElementById('tradeLog');
     const portfolioContainer = document.getElementById('portfolioContainer');
 
-    let portfolio = {};
-
+    let portfolio = JSON.parse(localStorage.getItem('port')) || {};
+    for (let symbol in portfolio) {
+        portfolioContainer.innerHTML += `<p>${symbol}: ${portfolio[symbol].quantity} shares, Total Value: $${portfolio[symbol].totalValue.toFixed(2)}</p>`;
+    }
        
     buy.addEventListener('click', (event) => {
         event.preventDefault();
@@ -339,7 +341,7 @@ function expandItem(item, title, description, imageSrc, videoSrc) {
                 for (let symbol in portfolio) {
                     portfolioContainer.innerHTML += `<p>${symbol}: ${portfolio[symbol].quantity} shares, Total Value: $${portfolio[symbol].totalValue.toFixed(2)}</p>`;
                 }
-                console.log(portfolio);
+                localStorage.setItem('port', JSON.stringify(portfolio));
             })
     })
     sell.addEventListener('click', (event) => {
@@ -363,8 +365,12 @@ function expandItem(item, title, description, imageSrc, videoSrc) {
                 if (portfolio[symbol]) {
                     portfolio[symbol].quantity -= quantity;
                     portfolio[symbol].totalValue -= price * quantity;
+                    if(portfolio[symbol].quantity <= 0){
+                        delete portfolio[symbol];
+                    }
                 } else {
                     tradeLog.innerHTML += `${symbol} not owned`;
+                    return;
                 }
         
                 tradeLog.innerHTML += `<p>Sold ${quantity} shares of ${symbol} at $${price} each.</p>`;
@@ -372,5 +378,8 @@ function expandItem(item, title, description, imageSrc, videoSrc) {
                 for (let symbol in portfolio) {
                     portfolioContainer.innerHTML += `<p>${symbol}: ${portfolio[symbol].quantity} shares, Total Value: $${portfolio[symbol].totalValue.toFixed(2)}</p>`;
                 }
+                localStorage.setItem('port', JSON.stringify(portfolio));
+
             })
     })
+}
