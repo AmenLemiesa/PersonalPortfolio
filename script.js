@@ -298,7 +298,7 @@ function expandItem(item, title, description, imageSrc, videoSrc) {
     }
 
     //paper
-    if (window.location.pathname.split("/").pop() === 'paperTrader.html'){
+if (window.location.pathname.split("/").pop() === 'paperTrader.html'){
     const API_KEY = 'ZKYPVBUN3C4RYZ09';
     const BASE_URL = 'https://www.alphavantage.co/query?';
 
@@ -307,9 +307,16 @@ function expandItem(item, title, description, imageSrc, videoSrc) {
     const portfolioContainer = document.getElementById('portfolioContainer');
 
     let portfolio = JSON.parse(localStorage.getItem('port')) || {};
+    let totalCash = JSON.parse(localStorage.getItem('cash')) || 10000;
+    let totalAssets = JSON.parse(localStorage.getItem('assets')) || 0;
+
     for (let symbol in portfolio) {
         portfolioContainer.innerHTML += `<p>${symbol}: ${portfolio[symbol].quantity} shares, Total Value: $${portfolio[symbol].totalValue.toFixed(2)}</p>`;
+        totalAssets += portfolio[symbol].totalValue.toFixed(2)
     }
+
+    assetsContainer.innerHTML = "Total Value: $" + totalAssets
+    cashContainer.innerHTML = "$" + totalCash;
        
     buy.addEventListener('click', (event) => {
         event.preventDefault();
@@ -340,8 +347,14 @@ function expandItem(item, title, description, imageSrc, videoSrc) {
                 portfolioContainer.innerHTML = '';
                 for (let symbol in portfolio) {
                     portfolioContainer.innerHTML += `<p>${symbol}: ${portfolio[symbol].quantity} shares, Total Value: $${portfolio[symbol].totalValue.toFixed(2)}</p>`;
+                    totalCash -= portfolio[symbol].totalValue;
+                    totalAssets += portfolio[symbol].totalValue;
                 }
                 localStorage.setItem('port', JSON.stringify(portfolio));
+                localStorage.setItem('cash', JSON.stringify(totalCash));
+                localStorage.setItem('assets', JSON.stringify(totalAssets));
+                cashContainer.innerHTML = "$" + totalCash;
+                assetsContainer.innerHTML = "Total Value: $" + totalAssets
             })
     })
     sell.addEventListener('click', (event) => {
@@ -363,6 +376,8 @@ function expandItem(item, title, description, imageSrc, videoSrc) {
                     return;
                 }
                 if (portfolio[symbol]) {
+                    totalCash += portfolio[symbol].totalValue;
+                    totalAssets -= portfolio[symbol].totalValue;
                     portfolio[symbol].quantity -= quantity;
                     portfolio[symbol].totalValue -= price * quantity;
                     if(portfolio[symbol].quantity <= 0){
@@ -379,7 +394,18 @@ function expandItem(item, title, description, imageSrc, videoSrc) {
                     portfolioContainer.innerHTML += `<p>${symbol}: ${portfolio[symbol].quantity} shares, Total Value: $${portfolio[symbol].totalValue.toFixed(2)}</p>`;
                 }
                 localStorage.setItem('port', JSON.stringify(portfolio));
-
+                localStorage.setItem('cash', JSON.stringify(totalCash));
+                localStorage.setItem('assets', JSON.stringify(totalAssets));
+                cashContainer.innerHTML = "$" + totalCash;
+                assetsContainer.innerHTML = "Total Value: $" + totalAssets;
             })
     })
+    reset.addEventListener('click', (event) => {
+        localStorage.removeItem('port');
+        localStorage.removeItem('cash');
+        localStorage.removeItem('assets');
+        location.reload();
+    })
+
+
 }

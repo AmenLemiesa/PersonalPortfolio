@@ -648,19 +648,30 @@ footer img{
   transition: transform 0.3s ease;
 }
 
+/* Paper Trader */
+
+
 .paperTraderContainer {
   display: flex;
   justify-content: center;
-  padding: 2em;
   gap: 2rem;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin: 5%;
 }
 
-.market-data, .trading, .portfolio {
+.market-data, .trading, .portfolio, .cash{
   background-color: white;
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 1em;
   width: 30%;
+}
+
+.portfolio {
+  position: relative;
 }
 
 #h2 {
@@ -678,4 +689,113 @@ form label, form input, form button {
 
 #tradeLog, #portfolioContainer, #marketDataContainer {
   margin-top: 1em;
+}
+
+#cashContainer {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+#assetsContainer {
+  position: absolute;
+  bottom: 0;
+  right:0;
+  padding-bottom: 10px;
+  padding-right: 15px;
+}
+
+
+.trading, .portfolio, .cash {
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.trading h2, .portfolio h2, .cash h2 {
+  margin-top: 0;
+  font-size: 1.5em;
+  border-bottom: 2px solid #e2e2e2;
+  padding-bottom: 10px;
+  color: #333333;
+}
+
+#tradeForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#tradeForm label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #555555;
+}
+
+#tradeForm input {
+  padding: 8px;
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+  font-size: 1em;
+}
+
+#buy {
+  background-color: #28a745; 
+  color: white;
+  padding: 10px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#buy:hover {
+  background-color: #218838; 
+}
+
+#sell {
+  background-color: #dc3545; 
+  color: white;
+  padding: 10px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#sell:hover {
+  background-color: #c82333; 
+}
+
+#reset {
+  background-color: #343a40; 
+  color: white;
+  padding: 10px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#reset:hover {
+  background-color: #23272b;
+}
+
+#tradeLog, #portfolioContainer, #cashContainer {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+
+#tradeLog p:last-child, #portfolioContainer p:last-child, #assetsContainer p:last-child, #cashContainer p:last-child {
+  border-bottom: none;
 }
