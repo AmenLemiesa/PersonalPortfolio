@@ -298,114 +298,127 @@ function expandItem(item, title, description, imageSrc, videoSrc) {
     }
 
     //paper
-if (window.location.pathname.split("/").pop() === 'paperTrader.html'){
-    const API_KEY = 'ZKYPVBUN3C4RYZ09';
-    const BASE_URL = 'https://www.alphavantage.co/query?';
-
-    const tradeForm = document.getElementById('tradeForm');
-    const tradeLog = document.getElementById('tradeLog');
-    const portfolioContainer = document.getElementById('portfolioContainer');
-
-    let portfolio = JSON.parse(localStorage.getItem('port')) || {};
-    let totalCash = JSON.parse(localStorage.getItem('cash')) || 10000;
-    let totalAssets = JSON.parse(localStorage.getItem('assets')) || 0;
-
-    for (let symbol in portfolio) {
-        portfolioContainer.innerHTML += `<p>${symbol}: ${portfolio[symbol].quantity} shares, Total Value: $${portfolio[symbol].totalValue.toFixed(2)}</p>`;
-        totalAssets += portfolio[symbol].totalValue.toFixed(2)
-    }
-
-    assetsContainer.innerHTML = "Total Value: $" + totalAssets
-    cashContainer.innerHTML = "$" + totalCash;
-       
-    buy.addEventListener('click', (event) => {
-        event.preventDefault();
-        const symbol = tradeForm.elements['symbol'].value.toUpperCase();
-        const quantity = parseInt(tradeForm.elements['quantity'].value);
-        if (!symbol || isNaN(quantity)) {
-            tradeLog.innerHTML = 'Please enter a valid stock symbol and quantity.';
-            return;
+    if (window.location.pathname.split("/").pop() === 'paperTrader.html'){
+        const API_KEY = 'ZKYPVBUN3C4RYZ09';
+        const BASE_URL = 'https://www.alphavantage.co/query?';
+    
+        const tradeForm = document.getElementById('tradeForm');
+        const tradeLog = document.getElementById('tradeLog');
+        const portfolioContainer = document.getElementById('portfolioContainer');
+        const assetsContainer = document.getElementById('assetsContainer');
+        const cashContainer = document.getElementById('cashContainer');
+    
+        let portfolio = JSON.parse(localStorage.getItem('port')) || {};
+        let totalCash = JSON.parse(localStorage.getItem('cash')) || 10000;
+        let totalAssets = JSON.parse(localStorage.getItem('assets')) || 0;
+    
+        function updatePortfolioDisplay() {
+            portfolioContainer.innerHTML = '';
+            totalAssets = 0;
+            let fetchPromises = [];
+    
+            for (let symbol in portfolio) {
+                let url = `${BASE_URL}function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${API_KEY}`;
+                fetchPromises.push(
+                    fetch(url)
+                        .then(response => response.json())
+                        .then(data => {
+                            const price = parseFloat(data['Global Quote']['05. price']);
+                            const priceChange = ((price - (portfolio[symbol].totalValue / portfolio[symbol].quantity)) / (portfolio[symbol].totalValue / portfolio[symbol].quantity) * 100).toFixed(2);
+                            
+                            portfolio[symbol].totalValue = price * portfolio[symbol].quantity;
+                            portfolioContainer.innerHTML += `<p>${symbol}: ${portfolio[symbol].quantity} shares, Total Value: $${portfolio[symbol].totalValue.toFixed(2)} (${priceChange}%)</p>`;
+                            totalAssets += portfolio[symbol].totalValue;
+                        })
+                );
+            }
+    
+            Promise.all(fetchPromises).then(() => {
+                assetsContainer.innerHTML = "Total Value: $" + totalAssets.toFixed(2);
+                cashContainer.innerHTML = "$" + totalCash.toFixed(2);
+            });
         }
-        
-        const url = `${BASE_URL}function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${API_KEY}`;
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                const price = data['Global Quote']['05. price'];
-                if (isNaN(price)){
-                    tradeLog.innerHTML = "Undefined Stock Symbol.";
-                    return;
-                }
-                if (portfolio[symbol]) {
-                    portfolio[symbol].quantity += quantity;
-                    portfolio[symbol].totalValue += price * quantity;
-                } else {
-                    portfolio[symbol] = { quantity: quantity, totalValue: price * quantity };
-                }
-        
-                tradeLog.innerHTML += `<p>Bought ${quantity} shares of ${symbol} at $${price} each.</p>`;
-                portfolioContainer.innerHTML = '';
-                for (let symbol in portfolio) {
-                    portfolioContainer.innerHTML += `<p>${symbol}: ${portfolio[symbol].quantity} shares, Total Value: $${portfolio[symbol].totalValue.toFixed(2)}</p>`;
-                    totalCash -= portfolio[symbol].totalValue;
-                    totalAssets += portfolio[symbol].totalValue;
-                }
-                localStorage.setItem('port', JSON.stringify(portfolio));
-                localStorage.setItem('cash', JSON.stringify(totalCash));
-                localStorage.setItem('assets', JSON.stringify(totalAssets));
-                cashContainer.innerHTML = "$" + totalCash;
-                assetsContainer.innerHTML = "Total Value: $" + totalAssets
-            })
-    })
-    sell.addEventListener('click', (event) => {
-        event.preventDefault();
-        const symbol = tradeForm.elements['symbol'].value.toUpperCase();
-        const quantity = parseInt(tradeForm.elements['quantity'].value);
-        if (!symbol || isNaN(quantity)) {
-            tradeLog.innerHTML = 'Please enter a valid stock symbol and quantity.';
-            return;
-        }
-        
-        const url = `${BASE_URL}function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${API_KEY}`;
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                const price = data['Global Quote']['05. price'];
-                if (isNaN(price)){
-                    tradeLog.innerHTML = "Undefined Stock Symbol.";
-                    return;
-                }
-                if (portfolio[symbol]) {
-                    totalCash += portfolio[symbol].totalValue;
-                    totalAssets -= portfolio[symbol].totalValue;
-                    portfolio[symbol].quantity -= quantity;
-                    portfolio[symbol].totalValue -= price * quantity;
-                    if(portfolio[symbol].quantity <= 0){
-                        delete portfolio[symbol];
+    
+        updatePortfolioDisplay();
+    
+        buy.addEventListener('click', (event) => {
+            event.preventDefault();
+            const symbol = tradeForm.elements['symbol'].value.toUpperCase();
+            const quantity = parseInt(tradeForm.elements['quantity'].value);
+            if (!symbol || isNaN(quantity)) {
+                tradeLog.innerHTML = 'Please enter a valid stock symbol and quantity.';
+                return;
+            }
+            
+            const url = `${BASE_URL}function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${API_KEY}`;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const price = parseFloat(data['Global Quote']['05. price']);
+                    if (isNaN(price)) {
+                        tradeLog.innerHTML = "Undefined Stock Symbol.";
+                        return;
                     }
-                } else {
-                    tradeLog.innerHTML += `${symbol} not owned`;
-                    return;
-                }
-        
-                tradeLog.innerHTML += `<p>Sold ${quantity} shares of ${symbol} at $${price} each.</p>`;
-                portfolioContainer.innerHTML = '';
-                for (let symbol in portfolio) {
-                    portfolioContainer.innerHTML += `<p>${symbol}: ${portfolio[symbol].quantity} shares, Total Value: $${portfolio[symbol].totalValue.toFixed(2)}</p>`;
-                }
-                localStorage.setItem('port', JSON.stringify(portfolio));
-                localStorage.setItem('cash', JSON.stringify(totalCash));
-                localStorage.setItem('assets', JSON.stringify(totalAssets));
-                cashContainer.innerHTML = "$" + totalCash;
-                assetsContainer.innerHTML = "Total Value: $" + totalAssets;
-            })
-    })
-    reset.addEventListener('click', (event) => {
-        localStorage.removeItem('port');
-        localStorage.removeItem('cash');
-        localStorage.removeItem('assets');
-        location.reload();
-    })
-
-
-}
+                    if (portfolio[symbol]) {
+                        portfolio[symbol].quantity += quantity;
+                        portfolio[symbol].totalValue += price * quantity;
+                    } else {
+                        portfolio[symbol] = { quantity: quantity, totalValue: price * quantity };
+                    }
+    
+                    totalCash -= price * quantity;
+    
+                    tradeLog.innerHTML += `<p>Bought ${quantity} shares of ${symbol} at $${price} each.</p>`;
+                    localStorage.setItem('port', JSON.stringify(portfolio));
+                    localStorage.setItem('cash', JSON.stringify(totalCash));
+                    localStorage.setItem('assets', JSON.stringify(totalAssets));
+                    updatePortfolioDisplay();
+                });
+        });
+    
+        sell.addEventListener('click', (event) => {
+            event.preventDefault();
+            const symbol = tradeForm.elements['symbol'].value.toUpperCase();
+            const quantity = parseInt(tradeForm.elements['quantity'].value);
+            if (!symbol || isNaN(quantity)) {
+                tradeLog.innerHTML = 'Please enter a valid stock symbol and quantity.';
+                return;
+            }
+            
+            const url = `${BASE_URL}function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${API_KEY}`;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const price = parseFloat(data['Global Quote']['05. price']);
+                    if (isNaN(price)) {
+                        tradeLog.innerHTML = "Undefined Stock Symbol.";
+                        return;
+                    }
+                    if (portfolio[symbol]) {
+                        totalCash += price * quantity;
+                        portfolio[symbol].quantity -= quantity;
+                        portfolio[symbol].totalValue -= price * quantity;
+                        if (portfolio[symbol].quantity <= 0) {
+                            delete portfolio[symbol];
+                        }
+                    } else {
+                        tradeLog.innerHTML += `${symbol} not owned`;
+                        return;
+                    }
+    
+                    tradeLog.innerHTML += `<p>Sold ${quantity} shares of ${symbol} at $${price} each.</p>`;
+                    localStorage.setItem('port', JSON.stringify(portfolio));
+                    localStorage.setItem('cash', JSON.stringify(totalCash));
+                    localStorage.setItem('assets', JSON.stringify(totalAssets));
+                    updatePortfolioDisplay();
+                });
+        });
+    
+        reset.addEventListener('click', (event) => {
+            localStorage.removeItem('port');
+            localStorage.removeItem('cash');
+            localStorage.removeItem('assets');
+            location.reload();
+        });
+    }
+    
