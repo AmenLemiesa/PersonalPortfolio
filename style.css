@@ -799,3 +799,68 @@ form label, form input, form button {
 #tradeLog p:last-child, #portfolioContainer p:last-child, #assetsContainer p:last-child, #cashContainer p:last-child {
   border-bottom: none;
 }
+
+.aboutSection {
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center;     /* Centers vertically */
+  height: 75vh;   
+}
+
+/* From Uiverse.io by eslam-hany */ 
+.card {
+  position: relative;
+  width: 50%;
+  height: 90%;
+  background: rgb(250, 250, 250);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: bold;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.card::before,
+.card::after {
+  position: absolute;
+  content: "";
+  width: 20%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: bold;
+  background-color: #23272b;
+  transition: all 0.5s;
+}
+
+.card::before {
+  top: 0;
+  right: 0;
+  border-radius: 0 15px 0 100%;
+}
+
+.card::after {
+  bottom: 0;
+  left: 0;
+  border-radius: 0 100%  0 15px;
+}
+
+.card:hover::before,
+.card:hover:after {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  transition: all 0.5s;
+}
+
+.card:hover:after {
+  content: "Computer Science & Engineering @ UMICH";
+  overflow-wrap: break-word; 
+  color: rgb(250, 250, 250);
+  opacity: 1; /* Makes the new text visible */
+
+}
